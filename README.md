@@ -45,7 +45,7 @@ Clone the repo:
 bash
 Copy
 Edit
-git clone https://github.com/yourusername/bitcheck.git
+git clone https://github.com/kunal1826/bitcheck.git
 cd bitcheck
 Install dependencies:
 
