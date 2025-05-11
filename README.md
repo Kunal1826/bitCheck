@@ -1,112 +1,102 @@
 
 
 
-🧠 BitCheck – AI Code Reviewer & Optimizer
+# 🧠 BitCheck – AI Code Reviewer & Optimizer
 
-🔍 What is BitCheck?
-BitCheck is your personal AI-powered coding assistant, designed to review, improve, and test your code in real time. Leveraging the power of Gemini AI and built using the MERN stack, BitCheck provides actionable insights, quality suggestions, and auto-generated test cases to help you write cleaner, more efficient code.
+## 🔍 What is BitCheck?
 
-🚀 Features
-🌟 AI Code Review
+**BitCheck** is an AI-powered collaborative code review and optimization platform built with the **MERN stack** and integrated with **Gemini AI**. Designed for developers, reviewers, and admins, BitCheck offers assistance to analyze, refactor, and test code using advanced AI models.
 
-Paste your code, and BitCheck intelligently scans for bugs, code smells, inefficiencies, and potential improvements.
+Whether you’re writing code, reviewing it, or managing approvals, BitCheck streamlines your workflow, ensures code quality, and boosts productivity—making development smarter, not harder.
 
-✨ Code Optimization Suggestions
+---
 
-Receive structured and clean refactored code using the latest best practices.
+## 🚀 Key Features
 
-🧪 Test Case Generation
+### 🌐 Collaborative Code Review System
 
-Automatically generate meaningful and edge-case-focused test cases to validate your functions.
+* 👨‍💻 **Developers** submit code via a clean interface with AI-assisted feedback.
+* 👀 **Reviewers** access a dashboard to approve or reject pending submissions, aided by AI-generated suggestions and comments.
+* 🛡️ **Admins** have access to all approved codes 
+* 🤖 **AI Integration** for **every role** ensures enhanced insights and decisions.
 
-📊 Intuitive & Interactive UI
+### 🧠 AI Playground (For Coders & Developers)
 
-A sleek, responsive user interface ensures a seamless experience for developers of all levels.
+* An **interactive playground** built for developers to experiment with code snippets.
+* Users can:
 
-🖼️ UI Previews
+  * ✅ Paste any code
+  * ✅ Get instant **AI-powered review**
+  * ✅ View **optimized code suggestions**
+  * ✅ Generate **meaningful and edge-case test cases**
+  * ✅ Send **custom instructions** to AI for tailored responses
 
-Home / Upload Code	AI Review Result	Optimized Code	Test Case Output
-(More coming soon)
-🧠 Powered by Gemini AI
-BitCheck integrates Google’s Gemini LLM to provide context-aware, high-quality code reviews. It understands code semantics, architecture, and best practices—making it smarter than simple linters or static analyzers.
+### 🤖 AI-Powered Development Workflow
 
-🛠️ Tech Stack
+* **AI Code Review**
+  Detect bugs, bad practices, and potential issues in real time.
 
-Tech	Role
-MongoDB	Database
-Express.js	Backend Framework
-React.js	Frontend Framework
-Node.js	Runtime Environment
-Gemini API	AI Code Analysis & Generation
-CSS & Tailwind (optional)	UI Styling
-📦 Installation
-Clone the repo:
+* **Code Optimization**
+  Clean up and refactor your code with best practice suggestions.
 
-bash
-Copy
-Edit
+* **Test Case Generation**
+  Automatically create test cases that focus on logic and edge cases.
+
+* **Custom AI Instructions**
+  Input natural language prompts to get flexible responses on any code scenario.
+
+### ☁️ Cloud Upload via Cloudinary
+
+* All code submissions are stored securely in the cloud using **Cloudinary**.
+* Ensures availability, reliability, and performance for handling code snippets.
+
+---
+
+## 🖼️ UI Overview
+
+* 📥 Home / Upload Code
+* 🧠 AI Review Results
+* ✨ Optimized Code
+* 🧪 Test Case Generator
+* 🧑‍💻 AI Playground
+* 👤 Role-based Dashboards (Developer, Reviewer, Admin)
+
+---
+
+## 🧠 Powered by Gemini AI
+
+BitCheck uses **Google Gemini LLM** to understand code **semantics**, **architecture**, and **best practices**. This makes it more intelligent than simple linters—offering deep, context-aware insights.
+
+---
+
+## 🛠️ Tech Stack
+
+| Tech           | Role                           |
+| -------------- | ------------------------------ |
+| MongoDB        | Database                       |
+| Express.js     | Backend Framework              |
+| React.js       | Frontend Framework             |
+| Node.js        | Runtime Environment            |
+| Gemini API     | AI Code Analysis & Suggestions |
+| Cloudinary     | Cloud Code Storage             |
+| Tailwind + CSS | UI Styling                     |
+
+---
+
+## 📦 Installation
+
+```bash
+# Clone the repo
 git clone https://github.com/kunal1826/bitcheck.git
 cd bitcheck
-Install dependencies:
 
-bash
-Copy
-Edit
-npm install  # for backend
-cd client && npm install  # for frontend
-Setup environment variables:
+# Install backend dependencies
+npm install
 
-Add your Gemini API key and other secrets in .env.
+# Install frontend dependencies
+cd client && npm install
+```
 
-Run the development server:
-
-bash
-Copy
-Edit
-# Backend
-npm run dev
-
-# Frontend (in /client)
-npm start
-🤖 Why BitCheck?
-"AI won’t replace developers—but developers who use AI will replace those who don’t."
-
-Whether you're a student, freelancer, or software engineer, BitCheck helps you:
-
-✅ Save time during reviews
-✅ Learn best practices as you code
-✅ Ensure test coverage
-✅ Get instant AI feedback on your work
-
-📌 Roadmap
- AI Code Review
-
- Code Optimization
-
- Test Case Generator
-
- Multiple Language Support
-
- GitHub PR Integration
-
- Real-time Collaboration
-
-🙌 Contribute
-Love the project? Help it grow!
-
-⭐ Star the repo
-
-🐛 Report issues
-
-📥 Submit pull requests
-
-💡 Suggest features
-
-📬 Contact
-For queries, reach out via GitHub Issues or email at kunal.kumawat001@gmail.com.
-
-⚖️ License
-Licensed under the MIT License.
 
 
   <img src="https://github.com/Kunal1826/bitCheck/blob/main/Screenshot%202025-04-30%20230333.png" alt="Project Banner" height=500px />
