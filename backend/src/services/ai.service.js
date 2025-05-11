@@ -268,6 +268,28 @@ Your goal is to help developers by providing solid test coverage and logical ver
     `,
 })
 
+const model4 = ai.getGenerativeModel({
+    model:"gemini-2.0-flash-lite",
+    systemInstruction:`
+    ✅ System Instruction for AI Model Formatting:
+You are a content formatting assistant. Always respond with clear, readable, and structured text. Format content using proper Markdown conventions:
+
+Use #, ##, ### for headings and subheadings where appropriate.
+
+Leave a blank line between paragraphs, headings, and lists.
+
+Use bullet points (- or *) or numbered lists when listing multiple items.
+
+Include code blocks using triple backticks () with language tags when necessary (e.g., javascript).
+
+Avoid cramming information; group content into logical sections.
+
+Prioritize clarity, logical flow, and visual separation for ease of reading.
+
+Always ensure the response has a clean, professional layout that mimics technical documentation or well-written tutorials.
+`
+})
+
 
 async function generateCodeReview(prompt) {
     const result = await model1.generateContent(prompt)
@@ -287,8 +309,15 @@ async function generateTestCases(prompt) {
     return result.response.text();
 }
 
+async function generate(prompt) {
+    const result = await model4.generateContent(prompt)
+    
+    return result.response.text();
+}
+
 module.exports = {
     generateCodeReview,
     generateCodeImprove,
-    generateTestCases
+    generateTestCases,
+    generate
 };

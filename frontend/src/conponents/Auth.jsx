@@ -1,9 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+
 
 const AuthPage = () => {
+ 
+  const navigate = useNavigate(); 
+  
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({ email: "", password: "", username: "" });
+  const [role, setrole] = useState("developer");
 
+ const {id}  = useParams()
+
+useEffect(()=>{
+  setrole(id);
+},[id])
+
+console.log(role);
+ 
   const toggleMode = () => {
     setIsLogin(!isLogin);
     setForm({ email: "", password: "", username: "" });
@@ -21,6 +38,58 @@ const AuthPage = () => {
       console.log("Registering with", form);
     }
   };
+
+
+  async function handleRegister() {
+    try {
+      const response = await axios.post("http://localhost:3000/api/user/register", {
+        username: form.username,
+        email: form.email,
+        password: form.password,
+        role: role,
+      }, {
+        withCredentials: true,
+      });
+  
+      if (response.data.token && response.data.success) {
+        toggleMode()
+      }
+  
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("An unexpected error occurred");
+      }
+    }
+  }
+  
+  async function handleLogin() {
+    try {
+      const response = await axios.post("http://localhost:3000/api/user/login", {
+        email: form.email,
+        password: form.password,
+      }, {
+        withCredentials: true
+      });
+  
+      if (response.data.token && response.data.success) {
+        const role = response.data.user.role;
+        if (role === "admin") {
+          navigate("/admin");
+        } else if (role === "reviewer") {
+          navigate("/reviewer");
+        } else if (role === "developer") {
+          navigate("/developer");
+        }
+      }
+  
+    } catch (err) {
+      if (err.response) {
+        alert(err.response.data.error);
+      }
+    }
+  }
 
   return (
     <div className="h-screen w-full flex items-center justify-center bg-black/80 text-white">
@@ -60,6 +129,7 @@ const AuthPage = () => {
           />
           <button
             type="submit"
+            onClick={isLogin ? handleLogin : handleRegister}
             className="w-full py-3 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition"
           >
             {isLogin ? "Login" : "Register"}

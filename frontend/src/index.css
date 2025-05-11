@@ -9,3 +9,72 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;             
 }
+
+body {
+  background: #e0e0e0;
+}
+
+.neumorphic {
+  padding: 20px 40px;
+  border-radius: 12px;
+  background: #e0e0e0;
+  box-shadow: 
+    8px 8px 12px #bebebe,
+    -8px -8px 12px #ffffff;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.markdown-output h1,
+.markdown-output h2,
+.markdown-output h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.markdown-output p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.markdown-output ul,
+.markdown-output ol {
+  margin-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-output li {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-output pre {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.markdown-output code {
+  background-color: #2d2d2d;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+
+.neumorphic-card {
+  @apply h-76 w-72 bg-white rounded-xl shadow-[inset_8px_8px_16px_#d1d9e6,inset_-8px_-8px_16px_#ffffff] flex flex-col items-center justify-center p-8 transition hover:scale-105;
+}
+
+.icon-style {
+  @apply text-zinc-700 mb-4 w-20 h-20;
+}
+
+.btn-style {
+  @apply px-4 py-2 bg-gradient-to-r from-black to-zinc-800 text-white rounded-md font-semibold hover:opacity-90 transition;
+}
