@@ -3,7 +3,7 @@ import {Route,Routes} from "react-router-dom"
 import PlayGround from './pages/PlayGround'
 import Home from './pages/Home'
 import Auth from "./conponents/Auth"
-import Admin from './pages/admin'
+import Admin from './pages/Admin'
 import Reviewer from './pages/Reviewer'
 import Developer from './pages/Developer'
 import CodeSubmissionPage from './pages/CodeSubmissionPage'
