@@ -71,7 +71,7 @@ const Home = () => {
             style={{
               backgroundImage: "linear-gradient(90deg, black -10%, #5e4ca2 75%)"
             }}
-            className="bg-gradient-to-r from-black to-[#5e4ca2] text-white capitalize border border-[#5e4ca2] rounded-md px-6 py-3 md:px-8 md:py-4 text-base font-medium leading-[150%] no-underline transition-all duration-300 text-lg"
+            className="bg-gradient-to-r from-black to-[#5e4ca2] text-white capitalize border border-[#5e4ca2] rounded-md px-6 py-3 md:px-8 md:py-4 font-medium leading-[150%] no-underline transition-all duration-300 text-lg"
           >
             Let's Start
           </button>

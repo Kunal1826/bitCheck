@@ -67,14 +67,3 @@ body {
 }
 
 
-.neumorphic-card {
-  @apply h-76 w-72 bg-white rounded-xl shadow-[inset_8px_8px_16px_#d1d9e6,inset_-8px_-8px_16px_#ffffff] flex flex-col items-center justify-center p-8 transition hover:scale-105;
-}
-
-.icon-style {
-  @apply text-zinc-700 mb-4 w-20 h-20;
-}
-
-.btn-style {
-  @apply px-4 py-2 bg-gradient-to-r from-black to-zinc-800 text-white rounded-md font-semibold hover:opacity-90 transition;
-}

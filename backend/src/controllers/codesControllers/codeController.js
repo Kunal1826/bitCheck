@@ -6,7 +6,6 @@ const getCodes = async (req, res, next) => {
   try {
     const loggedInUserId = req.user._id;
 
-    console.log("Authenticated user:", req.user);
 
     if (!loggedInUserId) {
       return res.status(401).json({ message: "User not logged in" });
