@@ -19,7 +19,7 @@ const CodeViewPage = () => {
   useEffect(() => {
     const fetchCode = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/code/get-code/${id}`, {
+        const response = await axios.get(`https://bitcheck.onrender.com/api/code/get-code/${id}`, {
           withCredentials: true,
         });
         setCodeName(response.data.codeName);
@@ -40,7 +40,7 @@ const CodeViewPage = () => {
   const handleSend = async () => {
     try {
       const combined = `${instruction}\n\nCode:\n${code}`;
-      const response = await axios.post("http://localhost:3000/api/ai/generate", {
+      const response = await axios.post("https://bitcheck.onrender.com/api/ai/generate", {
         code: combined,
       });
       setResponseText(response.data.data);
@@ -62,7 +62,7 @@ const CodeViewPage = () => {
       formData.append("codeName", codeName);
       formData.append("comment", comment);
 
-      await axios.put(`http://localhost:3000/api/code/update-code/${id}`, formData, {
+      await axios.put(`https://bitcheck.onrender.com/api/code/update-code/${id}`, formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",

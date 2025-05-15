@@ -22,7 +22,7 @@ const CodeSubmissionPage = () => {
   const handleSend = async () => {
     try {
       const combined = `${instruction}\n\nCode:\n${code}`;
-      const response = await axios.post("http://localhost:3000/api/ai/generate", {
+      const response = await axios.post("https://bitcheck.onrender.com/api/ai/generate", {
         code: combined,
       });
       setResponseText(response.data.data);
@@ -44,7 +44,7 @@ const CodeSubmissionPage = () => {
       formData.append("comment", comment);
       formData.append("codeName", codeName);
 
-      const response = await axios.post("http://localhost:3000/api/code/upload-code", formData, {
+      const response = await axios.post("https://bitcheck.onrender.com/api/code/upload-code", formData, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });
@@ -59,7 +59,7 @@ const CodeSubmissionPage = () => {
 
   const logout = async () => {
     try {
-      await axios.get("http://localhost:3000/api/user/logout", { withCredentials: true });
+      await axios.get("https://bitcheck.onrender.com/api/user/logout", { withCredentials: true });
       navigate("/");
     } catch (error) {
       console.error("Error during logout:", error);

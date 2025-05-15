@@ -10,7 +10,7 @@ const CodeCard = ({ code, navigate }) => {
   useEffect(() => {
     const fetchCreator = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/code/get-code-details/${code._id}`, {
+        const res = await axios.get(`https://bitcheck.onrender.com/api/code/get-code-details/${code._id}`, {
           withCredentials: true,
         });
         setCreator(res.data.userName);
@@ -56,7 +56,7 @@ const ReviewerDashboard = () => {
   useEffect(() => {
     const fetchCodes = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/code/get-All-codes", {
+        const res = await axios.get("https://bitcheck.onrender.com/api/code/get-All-codes", {
           withCredentials: true,
         });
         const pendingCodes = res.data.codes.filter((code) => code.status === "pending");
@@ -79,7 +79,7 @@ const ReviewerDashboard = () => {
 
   const logout = async () => {
     try {
-      await axios.get("http://localhost:3000/api/user/logout", { withCredentials: true });
+      await axios.get("https://bitcheck.onrender.com/api/user/logout", { withCredentials: true });
       navigate("/");
     } catch (error) {
       console.error("Error during logout:", error);

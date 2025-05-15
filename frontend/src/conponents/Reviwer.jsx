@@ -22,7 +22,7 @@ const Reviewer = () => {
   async function reviewCode(){
     settestCase("")
     setimprove("")
-    const response = await axios.post("http://localhost:3000/api/ai/get-review",{code})
+    const response = await axios.post("https://bitcheck.onrender.com/api/ai/get-review",{code})
     console.log(response.data.data)
     setreview(response.data.data)
   }
@@ -31,7 +31,7 @@ const Reviewer = () => {
   async function improveCode(){
     settestCase("")
     setreview("")
-    const response = await axios.post("http://localhost:3000/api/ai/get-improve",{code})
+    const response = await axios.post("https://bitcheck.onrender.com/api/ai/get-improve",{code})
     console.log(response.data.data)
     setimprove(response.data.data)
   }
@@ -40,7 +40,7 @@ const Reviewer = () => {
   async function testCaseCode(){
     setreview("")
     setimprove("")
-    const response = await axios.post("http://localhost:3000/api/ai/get-testcases",{code})
+    const response = await axios.post("https://bitcheck.onrender.com/api/ai/get-testcases",{code})
     console.log(response.data.data)
     settestCase(response.data.data)
   }

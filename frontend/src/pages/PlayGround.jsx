@@ -25,26 +25,26 @@ const PlayGround = () => {
 
   async function reviewCode() {
     clearResponses();
-    const response = await axios.post("http://localhost:3000/api/ai/get-review", { code });
+    const response = await axios.post("https://bitcheck.onrender.com/api/ai/get-review", { code });
     setReview(response.data.data);
   }
 
   async function improveCode() {
     clearResponses();
-    const response = await axios.post("http://localhost:3000/api/ai/get-improve", { code });
+    const response = await axios.post("https://bitcheck.onrender.com/api/ai/get-improve", { code });
     setImprove(response.data.data);
   }
 
   async function testCaseCode() {
     clearResponses();
-    const response = await axios.post("http://localhost:3000/api/ai/get-testcases", { code });
+    const response = await axios.post("https://bitcheck.onrender.com/api/ai/get-testcases", { code });
     setTestCase(response.data.data);
   }
 
   async function customInstruction() {
     clearResponses();
     const combined = `${instruction}\n\nCode:\n${code}`;
-    const response = await axios.post("http://localhost:3000/api/ai/generate", { code: combined });
+    const response = await axios.post("https://bitcheck.onrender.com/api/ai/generate", { code: combined });
     setReview(response.data.data);
   }
 

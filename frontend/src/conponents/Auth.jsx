@@ -34,7 +34,7 @@ const AuthPage = () => {
   async function handleRegister() {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/register",
+        "https://bitcheck.onrender.com/api/user/register",
         {
           username: form.username,
           email: form.email,
@@ -55,7 +55,7 @@ const AuthPage = () => {
   async function handleLogin() {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/login",
+        "https://bitcheck.onrender.com/api/user/login",
         {
           email: form.email,
           password: form.password,

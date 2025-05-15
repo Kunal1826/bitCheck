@@ -18,7 +18,7 @@ const Developer = () => {
   useEffect(() => {
     const fetchCodes = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/code/get-codes", { withCredentials: true });
+        const response = await axios.get("https://bitcheck.onrender.com/api/code/get-codes", { withCredentials: true });
         setCodes(response.data.codes || []);
       } catch (error) {
         console.error("Error fetching codes:", error);
@@ -34,7 +34,7 @@ const Developer = () => {
 
   const logout = async () => {
     try {
-      await axios.get("http://localhost:3000/api/user/logout", { withCredentials: true });
+      await axios.get("https://bitcheck.onrender.com/api/user/logout", { withCredentials: true });
       navigate("/");
     } catch (error) {
       console.error("Error during logout:", error);
