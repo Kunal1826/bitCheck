@@ -52,10 +52,10 @@ const PlayGround = () => {
     <div className="w-full h-screen bg-black text-white px-4 py-1 md:px-10 lg:px-2">
       <div className="flex h-full flex-col lg:flex-row gap-1 w-full">
         {/* Code Editor Section */}
-        <div className="w-full lg:w-1/2 bg-[#121212] rounded-xl p-4 flex flex-col">
-          <div className="flex-1 overflow-y-auto rounded-lg bg-black p-3 text-white">
+        <div className="w-full lg:w-1/2 bg-[#121212] rounded-xl p-4 flex flex-col ">
+          <div className="flex-1 overflow-y-auto rounded-lg bg-black p-3 text-white scrollbar-hide">
             <Editor
-              className="min-h-[300px] md:min-h-[400px] lg:min-h-[500px]"
+              className="min-h-[300px] md:min-h-[400px] lg:min-h-[500px] scrollbar-hide"
               value={code}
               onValueChange={setCode}
               highlight={code => prism.highlight(code, prism.languages.javascript, "javascript")}
