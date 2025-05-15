@@ -20,8 +20,8 @@ const registerController = async (req, res, next) => {
      
       res.cookie("token", token, {
         httpOnly: true,
-        sameSite: "Lax",
-         secure: false,
+        sameSite: "None",
+         secure: true,
 
       });
   
@@ -41,8 +41,8 @@ const registerController = async (req, res, next) => {
     
       res.cookie("token", token, {
         httpOnly: true,
-        sameSite: "Lax",
-         secure: false,
+        sameSite: "None",
+         secure: true,
 
       });
   
