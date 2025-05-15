@@ -6,8 +6,6 @@ import axios from "axios";
 import "prismjs/themes/prism-tomorrow.css";
 import { useNavigate } from "react-router-dom";
 
-
-
 const CodeSubmissionPage = () => {
   const [code, setCode] = useState("// Type your code here!");
   const [responseText, setResponseText] = useState("");
@@ -43,16 +41,12 @@ const CodeSubmissionPage = () => {
 
       const formData = new FormData();
       formData.append("file", file);
-      // formData.append("userId", "user123"); // Replace with real user ID
-      // formData.append("role", "developer");  // Replace with dynamic role
       formData.append("comment", comment);
       formData.append("codeName", codeName);
 
-      console.log(formData)
-
       const response = await axios.post("http://localhost:3000/api/code/upload-code", formData, {
         headers: { "Content-Type": "multipart/form-data" },
-         withCredentials: true,
+        withCredentials: true,
       });
 
       alert("Submission successful!");
@@ -63,63 +57,61 @@ const CodeSubmissionPage = () => {
     }
   };
 
-    const logout = async()=>{
-        try{
-          await axios.get("http://localhost:3000/api/user/logout", { withCredentials: true });
-          navigate("/");
-        } catch (error) {
-          console.error("Error during logout:", error);
-        }
-      }
-
+  const logout = async () => {
+    try {
+      await axios.get("http://localhost:3000/api/user/logout", { withCredentials: true });
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
 
   return (
-    <div className="h-screen w-full bg-black/90 text-white flex flex-col p-2 overflow-hidden relative">
-      {/* NavBar */}
-      <nav className="flex justify-between items-center bg-zinc-800 px-6 py-4 shadow-md rounded-xl mb-2">
-        <h1 className="text-3xl">bitCheck</h1>
-        <div className="flex gap-4">
+    <div className="w-full md:h-screen h-full bg-black text-white px-4 py-1 md:px-10 lg:px-2">
+      <div className="flex justify-between items-center py-4">
+        <h1 className="md:text-3xl text-2xl font-bold text-white">bitCheck</h1>
+        <div className="flex md:gap-4 gap-1">
           <button
             onClick={() => setShowPopup(true)}
-            className="px-4 py-2 bg-green-600 rounded hover:bg-green-700 text-white font-semibold"
+            className="bg-gradient-to-r from-green-700 to-green-500 text-white border border-green-500 rounded-md md:px-4 md:py-2 py-1 px-2 md:h-auto h-fit text-sm  md:font-medium  hover:scale-105 transition-transform"
           >
             Submit Code
           </button>
-          <button onClick={logout} className="text-white font-semibold px-4 py-2 bg-red-600 rounded hover:bg-red-700">
+          <button
+            onClick={logout}
+            className="bg-gradient-to-r from-red-700 to-red-500 text-white border border-red-500 rounded-md md:px-4 md:py-2 py-1 px-2 md:h-auto h-fit text-sm  md:font-medium  hover:scale-105 transition-transform"
+          >
             Logout
           </button>
         </div>
-      </nav>
+      </div>
 
-      <div className="flex flex-1 h-[calc(100%-5rem)]">
+      <div className="flex h-[calc(100%-6rem)] flex-col lg:flex-row md:gap-1 w-full">
         {/* Code Editor Section */}
-        <div className="w-1/2 h-full bg-black p-4">
-          <Editor
-            value={code}
-            onValueChange={setCode}
-            highlight={(code) =>
-              prism.highlight(code, prism.languages.javascript, "javascript")
-            }
-            padding={10}
-            className="bg-black text-white h-full overflow-auto border border-gray-700 rounded"
-          />
+        <div className="w-full lg:w-1/2 bg-[#121212] rounded-xl p-4 flex flex-col">
+          <div className="flex-1 overflow-y-auto rounded-lg bg-black p-3 text-white">
+            <Editor
+              className="min-h-[300px] md:min-h-[400px] lg:min-h-[500px]"
+              value={code}
+              onValueChange={setCode}
+              highlight={(code) => prism.highlight(code, prism.languages.javascript, "javascript")}
+              padding={10}
+            />
+          </div>
         </div>
 
-        {/* AI Response Section */}
-        <div className="w-1/2 h-full bg-zinc-900 flex flex-col p-4">
-          <div className="flex-1 overflow-y-auto mb-4 p-5 text-lg border border-gray-700 rounded scrollbar-hide">
+        {/* Output + Instruction Section */}
+        <div className="w-full lg:w-1/2 bg-[#1f1f1f] rounded-xl p-4 flex flex-col">
+          <div className="flex-1 overflow-y-auto border-b border-gray-700 pb-4 pr-1 scrollbar-hide">
             {responseText ? (
-              <div className="markdown-output">
-                <Markdown>{responseText}</Markdown>
-              </div>
+              <Markdown>{responseText}</Markdown>
             ) : (
-              <div className="text-center text-gray-500 mt-20 text-2xl opacity-40">
-                Welcome to bitCheck Assistant!
+              <div className="h-full w-full flex justify-center items-center text-3xl md:text-4xl opacity-40 text-center flex-col text-[#a896ea]">
+                Welcome to bitCheck<br /><span className="mt-4">Assistant!</span>
               </div>
             )}
           </div>
-
-          <div className="flex items-center gap-2 pt-2 border-t border-gray-700">
+          <div className="pt-4 flex flex-col md:flex-row items-center gap-2">
             <input
               type="text"
               value={instruction}
@@ -129,7 +121,7 @@ const CodeSubmissionPage = () => {
             />
             <button
               onClick={handleSend}
-              className="px-4 py-2 bg-blue-600 rounded text-white font-medium hover:bg-blue-700"
+              className="bg-gradient-to-r from-black to-[#5e4ca2] text-white capitalize border border-[#5e4ca2] rounded-md px-5 py-2 text-base font-medium leading-[150%] no-underline transition-all duration-300 hover:text-[#baa8f5]"
             >
               Send
             </button>

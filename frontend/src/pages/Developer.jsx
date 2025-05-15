@@ -4,6 +4,12 @@ import axios from "axios";
 
 const categories = ["Pending", "Rejected", "Approved"];
 
+const statusColors = {
+  approved: "text-blue-400 border-blue-400",
+  rejected: "text-red-400 border-red-400",
+  pending: "text-yellow-400 border-yellow-400",
+};
+
 const Developer = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [codes, setCodes] = useState([]);
@@ -22,96 +28,82 @@ const Developer = () => {
     fetchCodes();
   }, []);
 
-  const filteredCodes =
-    selectedCategory === "All"
-      ? codes
-      : codes.filter((code) => code.status.toLowerCase() === selectedCategory.toLowerCase());
+  const filteredCodes = selectedCategory === "All"
+    ? codes
+    : codes.filter((code) => code.status.toLowerCase() === selectedCategory.toLowerCase());
 
-
-      const logout = async()=>{
-        try{
-          await axios.get("http://localhost:3000/api/user/logout", { withCredentials: true });
-          navigate("/");
-        } catch (error) {
-          console.error("Error during logout:", error);
-        }
-      }
+  const logout = async () => {
+    try {
+      await axios.get("http://localhost:3000/api/user/logout", { withCredentials: true });
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
 
   return (
-    <div className="flex min-h-screen bg-gray-100 text-gray-900">
-      {/* Sidebar */}
-        <nav className="h-screen w-[15%] bg-zinc-100 p-5 shadow-lg flex flex-col justify-between">
-          <div>
-            <div className="flex flex-col items-center">
+    <div className="min-h-screen w-full bg-black text-white font-sans">
+      {/* Header */}
+      <header className="flex justify-between items-center  py-4 px-6 md:px-20 border-b border-white/20 bg-black sticky top-0 z-50">
+        <Link to="/" className="text-xl md:text-3xl  text-white">BitCheck</Link>
+        <div className="flex items-center gap-4">
           <Link
-            className="text-xs font-semibold text-sky-500 border border-sky-500 px-3 py-2 hover:bg-sky-600 hover:text-white rounded"
-            to={`/submit-code`}
+            to="/submit-code"
+            className="bg-gradient-to-r from-black to-[#5e4ca2] text-white border border-[#5e4ca2] md:px-4 md:py-2 rounded-md px-2 py-1 text-sm"
           >
             Submit New Code
           </Link>
-          <div className="w-[85%] h-[2px] bg-black/20 mt-3"></div>
-            </div>
-            <div className="Categories px-4 py-3">
-          <h1 className="font-medium mb-2">Status Filter</h1>
-          <ul className="space-y-2">
-            <li>
-              <button
-            className={`flex items-center gap-2 text-xs font-medium hover:text-blue-600 ${selectedCategory === "All" && "text-blue-600"}`}
-            onClick={() => setSelectedCategory("All")}
-              >
-            <div className="h-2 w-2 rounded-full bg-gray-400"></div>
-            All
-              </button>
-            </li>
-            {categories.map((cat, id) => (
-              <li key={id}>
-            <button
-              className={`flex items-center gap-2 text-xs font-medium hover:text-blue-600 ${selectedCategory === cat && "text-blue-600"}`}
-              onClick={() => setSelectedCategory(cat)}
-            >
-              <div className="h-2 w-2 rounded-full bg-blue-500"></div>
-              {cat}
-            </button>
-              </li>
-            ))}
-          </ul>
-            </div>
-          </div>
-          <div className="px-4 py-3">
-            <button onClick={logout} className="w-full py-2 text-sm font-semibold text-white bg-red-500 hover:bg-red-600 rounded-xl">
-          Logout
-            </button>
-          </div>
-        </nav>
+          <button
+            onClick={logout}
+            className="bg-red-500 hover:bg-red-600 text-white md:px-4 md:py-2 px-2 py-1 rounded-md text-sm"
+          >
+            Logout
+          </button>
+        </div>
+      </header>
 
-        {/* Main content */}
-      <main className="flex-1 p-6 overflow-auto">
-        <h1 className="text-2xl font-bold mb-6">Developer Dashboard</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCodes.map((code) => (
-            <div
-              key={code._id}
-              className="bg-white p-4 rounded-2xl shadow-md border border-gray-200"
+      {/* Filter Buttons */}
+      <section className="py-6 px-6 md:px-20">
+        <h1 className="text-3xl font-semibold mb-4">Developer Dashboard</h1>
+        <div className="flex gap-4 flex-wrap">
+          {['All', ...categories].map((category, index) => (
+            <button
+              key={index}
+              className={`px-4 py-2 border rounded-2xl text-sm transition-all duration-200 ${selectedCategory === category
+                ? 'bg-[#5e4ca2] border-[#5e4ca2] text-white'
+                : 'border-white/30 text-white hover:bg-white/10'}`}
+              onClick={() => setSelectedCategory(category)}
             >
-              <h2 className="text-lg font-semibold mb-1">{code.codeName}</h2>
-              <p className="text-sm text-gray-600 mb-2">
-                Status: <span className="font-medium">{code.status}</span>
-              </p>
-              {code.comments.length > 0 && (
-                <p className="text-sm text-gray-500 italic">
-                  {code.comments[code.comments.length - 1].text}
-                </p>
-              )}
-              <button
-                onClick={() => navigate(`/view-code/${code._id}`)}
-                className="mt-3 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-xl"
-              >
-                View
-              </button>
-            </div>
+              {category}
+            </button>
           ))}
         </div>
-      </main>
+      </section>
+
+      {/* Code Cards */}
+      <section className="px-6 md:px-20 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredCodes.map((code) => (
+          <div key={code._id} className="bg-gradient-to-r from-[#1b1b1b] to-[#ad70fb33] border border-[#ad70fb] rounded-xl p-6 shadow-xl">
+            <h2 className="text-xl font-semibold mb-2">{code.codeName}</h2>
+            <p className="text-gray-300 mb-1">
+              Status:  <span className={`text-sm ${statusColors[code.status?.toLowerCase()]}`}>
+                {code.status ? code.status.charAt(0).toUpperCase() + code.status.slice(1) : "Unknown"}
+              </span>
+            </p>
+            {code.comments && code.comments.length > 0 && (
+              <p className="text-sm italic text-gray-400 mb-2">
+                "{code.comments[code.comments.length - 1].text}"
+              </p>
+            )}
+            <button
+              onClick={() => navigate(`/view-code/${code._id}`)}
+              className="mt-4 inline-block bg-[#5e4ca2] hover:bg-[#734ef2] text-white text-sm px-4 py-2 rounded-md"
+            >
+              View Submission
+            </button>
+          </div>
+        ))}
+      </section>
     </div>
   );
 };

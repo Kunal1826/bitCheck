@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react"
-import React from 'react'
-import "prismjs/themes/prism-tomorrow.css"
-import prism from "prismjs"
-import Editor from "react-simple-code-editor"
-import Markdown from "react-markdown"
-import axios from "axios"
+import { useEffect, useState } from "react";
+import React from 'react';
+import "prismjs/themes/prism-tomorrow.css";
+import prism from "prismjs";
+import Editor from "react-simple-code-editor";
+import Markdown from "react-markdown";
+import axios from "axios";
 
 const PlayGround = () => {
   useEffect(() => {
-    prism.highlightAll()
-  }, [])
+    prism.highlightAll();
+  }, []);
 
   const [code, setCode] = useState("// Type your code here!");
   const [review, setReview] = useState("");
@@ -49,49 +49,40 @@ const PlayGround = () => {
   }
 
   return (
-    <div className='h-screen w-full bg-black/40 p-2 overflow-hidden'>
-      <div className='main flex justify-between h-screen w-full mt-2'>
-
+    <div className="w-full h-screen bg-black text-white px-4 py-1 md:px-10 lg:px-2">
+      <div className="flex h-full flex-col lg:flex-row gap-1 w-full">
         {/* Code Editor Section */}
-        <div className='left w-[49.5%] h-[97%] bg-black rounded-[5px] relative'>
-
-          {/* Scrollable Editor Area */}
-          <div className='code h-[90%] w-full bg-black text-white p-5 overflow-y-auto scrollbar-hide'>
+        <div className="w-full lg:w-1/2 bg-[#121212] rounded-xl p-4 flex flex-col">
+          <div className="flex-1 overflow-y-auto rounded-lg bg-black p-3 text-white">
             <Editor
-              className="!black text-white"
+              className="min-h-[300px] md:min-h-[400px] lg:min-h-[500px]"
               value={code}
               onValueChange={setCode}
               highlight={code => prism.highlight(code, prism.languages.javascript, "javascript")}
               padding={10}
             />
           </div>
-
-          {/* Fixed Buttons at Bottom-Right */}
-          <div className="absolute bottom-[2%] right-[2%] flex gap-2 z-10">
-            <button onClick={reviewCode} className='px-3 py-2 rounded bg-[#5C5C5C] text-white active:scale-95 hover:bg-white hover:text-black'>Review</button>
-            <button onClick={improveCode} className='px-3 py-2 rounded bg-[#5C5C5C] text-white active:scale-95 hover:bg-white hover:text-black'>Improve</button>
-            <button onClick={testCaseCode} className='px-3 py-2 rounded bg-[#5C5C5C] text-white active:scale-95 hover:bg-white hover:text-black'>Test Cases</button>
+          <div className="flex flex-row sm:flex-row flex-wrap gap-1 sm:gap-3 mt-4 justify-center sm:justify-end w-full">
+            <button onClick={reviewCode}className="bg-gradient-to-r from-black to-[#5e4ca2] text-white capitalize border border-[#5e4ca2] rounded-md px-4 py-2 text-base font-medium leading-[150%] no-underline transition-all duration-300 hover:text-[#baa8f5] active:scale-95 ">Review</button>
+            <button onClick={improveCode} className="bg-gradient-to-r from-black to-[#5e4ca2] text-white capitalize border border-[#5e4ca2] rounded-md px-4 py-2 text-base font-medium leading-[150%] no-underline transition-all duration-300 hover:text-[#baa8f5] active:scale-95 ">Improve</button>
+            <button onClick={testCaseCode} className="bg-gradient-to-r from-black to-[#5e4ca2] text-white capitalize border border-[#5e4ca2] rounded-md px-4 py-2 text-base font-medium leading-[150%] no-underline transition-all duration-300 hover:text-[#baa8f5] active:scale-95">Test Cases</button>
           </div>
         </div>
 
         {/* Output and Instruction Section */}
-        <div className='right w-[50%] h-[97%] p-5 bg-black/40 rounded-[5px] flex flex-col justify-between'>
-
-          {/* Output Area */}
-          <div className="flex-1 overflow-y-auto text-white border-b border-gray-700 pb-4 pr-1 scrollbar-hide">
-            {
-              review || improve || testCase ? (
-                <Markdown>{review || improve || testCase}</Markdown>
-              ) : (
-                <div className="h-full w-full flex justify-center items-center text-5xl opacity-40 text-center flex-col">
-                  Welcome to bitCheck<br /><span className="mt-4">Playground!</span>
-                </div>
-              )
-            }
+        <div className="w-full lg:w-1/2 bg-[#1f1f1f] rounded-xl p-4 flex flex-col">
+          <div className="flex-1 overflow-y-auto border-b border-gray-700 pb-4 pr-1">
+            {review || improve || testCase ? (
+              <Markdown>{review || improve || testCase}</Markdown>
+            ) : (
+              <div className="h-full w-full flex justify-center items-center text-3xl md:text-4xl opacity-40 text-center flex-col text-[#a896ea]">
+                Welcome to bitCheck<br /><span className="mt-4">Playground!</span>
+              </div>
+            )}
           </div>
 
-          {/* Instruction Input Bottom */}
-          <div className="pt-4 flex items-center gap-2">
+          {/* Instruction Input */}
+          <div className="pt-4 flex flex-col md:flex-row items-center gap-2">
             <input
               type="text"
               value={instruction}
@@ -101,7 +92,7 @@ const PlayGround = () => {
             />
             <button
               onClick={customInstruction}
-              className="px-4 py-2 bg-blue-600 rounded text-white font-medium hover:bg-blue-700"
+              className="bg-gradient-to-r from-black to-[#5e4ca2] text-white capitalize border border-[#5e4ca2] rounded-md px-5 py-2 text-base font-medium leading-[150%] no-underline transition-all duration-300 hover:text-[#baa8f5]"
             >
               Send
             </button>
@@ -109,7 +100,7 @@ const PlayGround = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default PlayGround;

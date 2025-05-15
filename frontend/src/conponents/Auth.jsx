@@ -1,26 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-
-
+import { useParams, useNavigate } from "react-router-dom";
 
 const AuthPage = () => {
- 
-  const navigate = useNavigate(); 
-  
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({ email: "", password: "", username: "" });
-  const [role, setrole] = useState("developer");
+  const [role, setRole] = useState("developer");
+  const { id } = useParams();
 
- const {id}  = useParams()
+  useEffect(() => {
+    setRole(id);
+  }, [id]);
 
-useEffect(()=>{
-  setrole(id);
-},[id])
-
-console.log(role);
- 
   const toggleMode = () => {
     setIsLogin(!isLogin);
     setForm({ email: "", password: "", username: "" });
@@ -33,118 +25,110 @@ console.log(role);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isLogin) {
-      console.log("Logging in with", form);
+      handleLogin();
     } else {
-      console.log("Registering with", form);
+      handleRegister();
     }
   };
 
-
   async function handleRegister() {
     try {
-      const response = await axios.post("http://localhost:3000/api/user/register", {
-        username: form.username,
-        email: form.email,
-        password: form.password,
-        role: role,
-      }, {
-        withCredentials: true,
-      });
-  
+      const response = await axios.post(
+        "http://localhost:3000/api/user/register",
+        {
+          username: form.username,
+          email: form.email,
+          password: form.password,
+          role: role,
+        },
+        { withCredentials: true }
+      );
+
       if (response.data.token && response.data.success) {
-        toggleMode()
+        toggleMode();
       }
-  
     } catch (error) {
-      if (error.response) {
-        alert(error.response.data.message);
-      } else {
-        alert("An unexpected error occurred");
-      }
+      alert(error.response?.data?.message || "An unexpected error occurred");
     }
   }
-  
+
   async function handleLogin() {
     try {
-      const response = await axios.post("http://localhost:3000/api/user/login", {
-        email: form.email,
-        password: form.password,
-      }, {
-        withCredentials: true
-      });
-  
+      const response = await axios.post(
+        "http://localhost:3000/api/user/login",
+        {
+          email: form.email,
+          password: form.password,
+        },
+        { withCredentials: true }
+      );
+
       if (response.data.token && response.data.success) {
-        const role = response.data.user.role;
-        if (role === "admin") {
-          navigate("/admin");
-        } else if (role === "reviewer") {
-          navigate("/reviewer");
-        } else if (role === "developer") {
-          navigate("/developer");
-        }
+        const userRole = response.data.user.role;
+        navigate(`/${userRole}`);
       }
-  
     } catch (err) {
-      if (err.response) {
-        alert(err.response.data.error);
-      }
+      alert(err.response?.data?.error || "Login failed");
     }
   }
 
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-black/80 text-white">
-      <div className="bg-[#1E1E1E] p-8 rounded-2xl shadow-2xl w-[90%] max-w-md">
-        <h2 className="text-3xl font-bold mb-6 text-center">
-          {isLogin ? "Login to bitCheck" : "Register for bitCheck"}
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {!isLogin && (
+    <div className="w-full min-h-screen bg-black text-white font-sans">
+      <div className="bg-[url('https://cdn.prod.website-files.com/67dc09e7e929a3f824ab44f2/67de4474b9bcdeb60029bf55_Hero%20Background%20Image.png')] bg-cover bg-center min-h-screen flex justify-center items-center px-4">
+        <div className="bg-gradient-to-r from-black to-[#312755] text-white border border-[#5e4ca2] rounded-xl px-6 py-8 sm:px-8 md:px-10 md:py-10 w-full max-w-md">
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-6 text-center">
+            {isLogin ? "Login to BitCheck" : "Register for BitCheck"}
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {!isLogin && (
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={form.username}
+                onChange={handleChange}
+                className="w-full p-3 rounded-xl bg-black text-white border border-gray-700 focus:outline-none"
+                required
+              />
+            )}
             <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={form.username}
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={form.email}
               onChange={handleChange}
-              className="w-full p-3 rounded-xl bg-[#2D2D2D] text-white border border-gray-700 focus:outline-none"
+              className="w-full p-3 rounded-xl bg-black text-white border border-gray-700 focus:outline-none"
               required
             />
-          )}
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-            className="w-full p-3 rounded-xl bg-[#2D2D2D] text-white border border-gray-700 focus:outline-none"
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-            className="w-full p-3 rounded-xl bg-[#2D2D2D] text-white border border-gray-700 focus:outline-none"
-            required
-          />
-          <button
-            type="submit"
-            onClick={isLogin ? handleLogin : handleRegister}
-            className="w-full py-3 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition"
-          >
-            {isLogin ? "Login" : "Register"}
-          </button>
-        </form>
-        <div className="text-center mt-5">
-          <p className="text-sm text-gray-400">
-            {isLogin ? "Don't have an account?" : "Already have an account?"} {" "}
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={handleChange}
+              className="w-full p-3 rounded-xl bg-black text-white border border-gray-700 focus:outline-none"
+              required
+            />
             <button
-              onClick={toggleMode}
-              className="text-blue-400 hover:underline"
+              type="submit"
+              className="w-full py-3 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition"
             >
-              {isLogin ? "Register" : "Login"}
+              {isLogin ? "Login" : "Register"}
             </button>
-          </p>
+          </form>
+          <div className="text-center mt-5">
+            <p className="text-sm text-gray-400">
+              {isLogin
+                ? "Don't have an account?"
+                : "Already have an account?"}{" "}
+              <button
+                onClick={toggleMode}
+                className="text-blue-400 hover:underline"
+              >
+                {isLogin ? "Register" : "Login"}
+              </button>
+            </p>
+          </div>
         </div>
       </div>
     </div>

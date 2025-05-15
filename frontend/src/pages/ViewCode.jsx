@@ -14,11 +14,7 @@ const CodeViewPage = () => {
   const [responseText, setResponseText] = useState("");
   const [instruction, setInstruction] = useState("");
   const [showPopup, setShowPopup] = useState(false);
-
-
   const { id } = useParams();
-
-  console.log(id)
 
   useEffect(() => {
     const fetchCode = async () => {
@@ -28,15 +24,12 @@ const CodeViewPage = () => {
         });
         setCodeName(response.data.codeName);
         setStatus(response.data.status);
-
         const fileRes = await axios.get(response.data.fileUrl);
-        console.log("fileUrl:", response.data.fileUrl);
         setCode(fileRes.data);
       } catch (error) {
         console.error("Failed to fetch code:", error);
       }
     };
-
     fetchCode();
   }, [id]);
 
@@ -57,85 +50,76 @@ const CodeViewPage = () => {
     }
   };
 
-const handleSubmit = async () => {
-  try {
-    // Convert the current `code` string into a Blob and then a File
-    const blob = new Blob([code], { type: "text/plain" });
-    const file = new File([blob], `${codeName || "updated-code"}.js`, {
-      type: "text/plain",
-    });
+  const handleSubmit = async () => {
+    try {
+      const blob = new Blob([code], { type: "text/plain" });
+      const file = new File([blob], `${codeName || "updated-code"}.js`, {
+        type: "text/plain",
+      });
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("codeName", codeName);
-    formData.append("comment", comment);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("codeName", codeName);
+      formData.append("comment", comment);
 
-    const response = await axios.put(
-      `http://localhost:3000/api/code/update-code/${id}`,
-      formData,
-      {
+      await axios.put(`http://localhost:3000/api/code/update-code/${id}`, formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      }
-    );
+      });
 
-    alert("Code updated successfully.");
-    setShowPopup(false);
-  } catch (error) {
-    console.error("Update failed:", error);
-    alert("Failed to update code.");
-  }
-};
-
+      alert("Code updated successfully.");
+      setShowPopup(false);
+    } catch (error) {
+      console.error("Update failed:", error);
+      alert("Failed to update code.");
+    }
+  };
 
   return (
-    <div className="h-screen w-full bg-black/90 text-white flex flex-col p-2 overflow-hidden relative">
+    <div className="w-full md:h-screen h-full bg-black text-white px-4 py-2 md:px-10">
       {/* NavBar */}
-      <nav className="flex justify-between items-center bg-zinc-800 px-6 py-4 shadow-md rounded-xl mb-2">
-        <h1 className="text-2xl font-bold">{codeName || "Loading..."}</h1>
-        <div className="flex items-center gap-4">
-          <span className="px-3 py-1 rounded bg-blue-700 text-white font-medium">
+      <div className="flex justify-between items-center py-4">
+        <h1 className="md:text-3xl text-2xl font-bold">{codeName || "Loading..."}</h1>
+        <div className="flex gap-2">
+          <span className="md:px-3 md:py-1 px-2 py-2 rounded bg-blue-600 text-white font-medium text-sm md:flex md:justify-center md:items-center">
             {status || "Pending"}
           </span>
           <button
             onClick={() => setShowPopup(true)}
-            className="px-4 py-2 bg-green-600 rounded hover:bg-green-700 text-white font-semibold"
+            className="bg-gradient-to-r from-green-700 to-green-500 text-white border border-green-500 rounded-md px-3 py-1 md:px-4 md:py-2 text-sm md:text-base hover:scale-105 transition-transform"
           >
             Submit Code
           </button>
         </div>
-      </nav>
+      </div>
 
-      <div className="flex flex-1 h-[calc(100%-5rem)]">
+      <div className="flex flex-col lg:flex-row h-[calc(100%-5rem)] gap-2">
         {/* Code Editor Section */}
-        <div className="w-1/2 h-full bg-black p-4">
+        <div className="w-full lg:w-1/2 bg-[#121212] rounded-xl p-4">
           <Editor
+            className="min-h-[325px] md:min-h-[400px] lg:min-h-[500px]"
             value={code}
             onValueChange={setCode}
             highlight={(code) => prism.highlight(code, prism.languages.javascript, "javascript")}
             padding={10}
-            className="bg-black text-white h-full overflow-auto border border-gray-700 rounded"
-           
           />
         </div>
 
         {/* AI Response Section */}
-        <div className="w-1/2 h-full bg-zinc-900 flex flex-col p-4">
-          <div className="flex-1 overflow-y-auto mb-4 p-5 text-lg border border-gray-700 rounded scrollbar-hide">
+        <div className="w-full lg:w-1/2 bg-[#1f1f1f] rounded-xl p-4 flex flex-col">
+          <div className="flex-1 overflow-y-auto border-b border-gray-700 pb-4 pr-1 scrollbar-hide">
             {responseText ? (
-              <div className="markdown-output">
-                <Markdown>{responseText}</Markdown>
-              </div>
+              <Markdown>{responseText}</Markdown>
             ) : (
-              <div className="text-center text-gray-500 mt-20 text-2xl opacity-40">
-                Welcome to bitCheck Assistant!
+              <div className="h-full w-full flex justify-center items-center text-2xl md:text-3xl opacity-40 text-center text-[#a896ea]">
+                Welcome to bitCheck <br /> <span className="mt-2">Assistant!</span>
               </div>
             )}
           </div>
 
-          <div className="flex items-center gap-2 pt-2 border-t border-gray-700">
+          <div className="pt-4 flex flex-col md:flex-row items-center gap-2">
             <input
               type="text"
               value={instruction}
@@ -145,7 +129,7 @@ const handleSubmit = async () => {
             />
             <button
               onClick={handleSend}
-              className="px-4 py-2 bg-blue-600 rounded text-white font-medium hover:bg-blue-700"
+              className="bg-gradient-to-r from-black to-[#5e4ca2] text-white capitalize border border-[#5e4ca2] rounded-md px-5 py-2 text-base font-medium transition-all duration-300 hover:text-[#baa8f5]"
             >
               Send
             </button>
@@ -174,7 +158,7 @@ const handleSubmit = async () => {
               </button>
               <button
                 onClick={handleSubmit}
-                className="px-4 py-2 bg-green-600 rounded text-white hover:bg-green-700"
+                className="bg-gradient-to-r from-black to-[#5e4ca2] text-white capitalize border border-[#5e4ca2] rounded-md px-5 py-2 text-base font-medium transition-all duration-300 hover:text-[#baa8f5]"
               >
                 Submit
               </button>
