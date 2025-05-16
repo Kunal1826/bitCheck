@@ -59,6 +59,7 @@ const AuthPage = () => {
         {
           email: form.email,
           password: form.password,
+          role: role
         },
         { withCredentials: true }
       );

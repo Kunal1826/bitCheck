@@ -32,11 +32,15 @@ const registerController = async (req, res, next) => {
   };
 
   const loginController = async (req, res, next) => {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
   
     try {
       const user = await userModel.authenticateUser(email, password);
-  
+
+       const userRole = user.role;
+
+      if(userRole != role) return res.status(400).json({message: "Access denied"})
+
       const token = await user.generateAuthToken();
     
       res.cookie("token", token, {
