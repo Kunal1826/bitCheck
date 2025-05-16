@@ -78,7 +78,7 @@ const Home = () => {
           </header>
 
           {/* Hero Section */}
-          <section className="flex flex-col items-center justify-center h-[90vh] text-center px-4 md:px-6"></section>
+          <section className="flex flex-col items-center justify-center h-[90vh] text-center px-4 md:px-6">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium mb-6 leading-tight text-white max-w-4xl tracking-tight">
               AI-Driven <span className="text-[#AD70FB]">Code Review</span><br className="hidden md:block" />
               Without the Bottlenecks.
