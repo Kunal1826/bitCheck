@@ -99,18 +99,24 @@ cd client && npm install
 
 
 
-  <img src="https://github.com/Kunal1826/bitCheck/blob/main/Screenshot%202025-04-30%20230333.png" alt="Project Banner" height=500px />
+  <img src="https://github.com/Kunal1826/bitCheck/blob/main/pic1.png" alt="Project Banner" height=500px />
 
   <br/>
 
-  <img src="https://github.com/Kunal1826/bitCheck/blob/main/Screenshot%202025-04-30%20230333.png" alt="Project Banner" height=500px />
+  <img src="https://github.com/Kunal1826/bitCheck/blob/main/pic2.png" alt="Project Banner" height=500px />
 
   <br/>
   
 
-  <img src="https://github.com/Kunal1826/bitCheck/blob/main/Screenshot%202025-04-30%20230526.png" alt="Project Banner" height=500px />
+  <img src="https://github.com/Kunal1826/bitCheck/blob/main/pic3.png" alt="Project Banner" height=500px />
   
+<br/>
 
+ <img src="https://github.com/Kunal1826/bitCheck/blob/main/pic4.png" alt="Project Banner" height=500px />
 
+ <br/>
+
+<img src="https://github.com/Kunal1826/bitCheck/blob/main/pic5.png" alt="Project Banner" height=500px />
+ 
   
 
